@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
+// import emailjs from '@emailjs/browser'; // No longer needed for Nodemailer
 
 const Contact = () => {
   useEffect(() => {
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'sAWHE6_glAeyw_9Ux');
+    // emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'sAWHE6_glAeyw_9Ux'); // No longer needed for Nodemailer
   }, []);
 
   const [formData, setFormData] = useState({
@@ -23,24 +23,26 @@ const Contact = () => {
     setStatus({ submitting: true, submitted: false, error: false });
 
     try {
-      console.log('Sending email with data:', formData);
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_zs1461f',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_r41lpnk',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_name: 'Jaswanth Varma',
-          reply_to: formData.email,
+      console.log('Sending form data to API:', formData);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'sAWHE6_glAeyw_9Ux'
-      );
-      console.log('Email sent successfully:', result);
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('API response:', result);
+
       setStatus({ submitting: false, submitted: true, error: false });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Detailed error:', error);
+      console.error('Detailed error sending form:', error);
       setStatus({ submitting: false, submitted: false, error: true });
     }
   };
