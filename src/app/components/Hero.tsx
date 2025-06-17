@@ -38,18 +38,12 @@ const Hero = () => {
             className="space-x-4"
           >
             <a
-              href="/resume.pdf"
+              href="/Jaswanth Varma Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
               📄 View Resume
-            </a>
-            <a
-              href="#contact"
-              className="inline-block border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              📬 Contact Me
             </a>
           </motion.div>
         </motion.div>

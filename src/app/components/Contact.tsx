@@ -89,7 +89,7 @@ const Contact = () => {
                   <span>github.com/jaswanth1590</span>
                 </a>
                 <a
-                  href="https://linkedin.com/in/your-profile"
+                  href="https://www.linkedin.com/in/jaswanth-varma-raghavaraju-48b171245"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 text-gray-600 hover:text-blue-600"
